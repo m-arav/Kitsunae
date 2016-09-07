@@ -4,7 +4,7 @@
   "description": "GoodKarma-client (Shape Shifter)",
   "main": "index.js",
   "scripts": {
-    "production": "webpack -p",
+    "production": "webpack --progress -p",
     "start": "webpack-dev-server",
     "test": "jest --watch --env=jsdom"
   },
