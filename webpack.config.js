@@ -1,5 +1,6 @@
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
   template: __dirname + '/app/index.html',
   filename: 'index.html',
   inject: 'body'
@@ -17,5 +18,12 @@ module.exports = {
     filename: "index_bundle.js",
     path: __dirname + '/dist'
   },
-  plugins: [HTMLWebpackPluginConfig]
+  plugins: [
+    HTMLWebpackPluginConfig,
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    })
+  ]
 };
