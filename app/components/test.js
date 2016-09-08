@@ -8,18 +8,30 @@ const api = create({
 const validEndpoints = ['abys', 'ayana'];
 
 export default class Test extends Component {
+
   constructor(props) {
     super(props);
     this.state = { isLoading: true, text: "" }
+
+    this.handleApiCall = this.handleApiCall.bind(this);
   }
 
-  componentDidMount() {
-    if(validEndpoints.includes(this.props.params.studio)) {
-      api.get(`/${this.props.params.studio}.json`)
+  handleApiCall(studio) {
+    if(validEndpoints.includes(studio)) {
+      api.get(`/${studio}.json`)
       .then((response) => { this.setState({ isLoading: false, text: response.data }) })
     } else {
       this.setState({ isLoading: false, text: "Invalid route" })
     }
+  }
+
+  componentDidMount() {
+    this.handleApiCall(this.props.params.studio);
+  }
+
+  componentWillReceiveProps(nextProp) {
+    this.setState({ isLoading: true, text: "Loading" })
+    this.handleApiCall(nextProp.params.studio);
   }
 
   render() {
